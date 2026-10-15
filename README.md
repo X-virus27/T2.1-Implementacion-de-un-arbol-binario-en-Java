@@ -26,6 +26,7 @@ Hojas: 5 (NIVEL1, NIVEL3, TI, INVEST. y VINCULACIÓN)
 
 Altura: 3 aristas (camino más largo: UNIVERSIDAD → FISEI → SOFTWARE → NIVEL1)
 
+```
 src/
  ├── modelo/
  │    └── Nodo.java
@@ -33,7 +34,7 @@ src/
  │    └── ArbolBinario.java
  └── app/
       └── Main.java
-
+```
 Nodo<T>: guarda el dato y las referencias a los hijos izquierdo y derecho. Incluye esHoja() y grado().
 
 ArbolBinario<T>: crea la raíz, agrega hijos, cuenta nodos y hojas, calcula la altura y muestra el árbol.
@@ -63,15 +64,19 @@ Menú del programa
 Caso 1: árbol vacío
 Antes de crear el árbol: 0 nodos y altura -1.
 <img width="620" height="644" alt="image" src="https://github.com/user-attachments/assets/96047bb8-929e-4ac2-9c47-1a12f3511e74" />
+
 Caso 2: árbol con un solo nodo
 Solo la raíz: 1 nodo, 1 hoja y altura 0.
 <img width="569" height="480" alt="image" src="https://github.com/user-attachments/assets/f203a23b-3709-4f26-90dd-b1d9b4fc5d37" />
+
 Caso 3: árbol inicial
 Después de crear el árbol: 9 nodos, 5 hojas y altura 3.
 <img width="167" height="591" alt="image" src="https://github.com/user-attachments/assets/69ab9c8e-27f3-4e05-a6fb-6d8e4433a261" />
+
 Caso 4: insertar un hijo en una posición ocupada
 El intento es rechazado porque la posición ya tiene un hijo.
 <img width="841" height="387" alt="image" src="https://github.com/user-attachments/assets/dbfc14f8-be37-4642-8777-d4ef5dd64aa9" />
+
 Caso 5: grado de FISEI y SOFTWARE
 FISEI tiene grado 2 y SOFTWARE tiene grado 2.
 <img width="603" height="760" alt="image" src="https://github.com/user-attachments/assets/2c12a924-de5c-4eae-8a5a-0574c3a9fec0" />
