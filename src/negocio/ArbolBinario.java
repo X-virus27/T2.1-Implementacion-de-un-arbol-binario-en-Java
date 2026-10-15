@@ -1,111 +1,107 @@
 package negocio;
-
-import java.util.Objects;
 import modelo.Nodo;
 
-/** Árbol jerárquico: los datos no se ordenan como en un árbol de búsqueda. */
 public class ArbolBinario<T> {
     private Nodo<T> raiz;
 
-    public Nodo<T> getRaiz() { return raiz; }
+    public ArbolBinario() {
+        this.raiz = null;
+    }
 
-    public boolean esVacio() { return raiz == null; }
-
-    public Nodo<T> crearRaiz(T dato) {
-        if (!esVacio()) {
-            throw new IllegalStateException("El árbol ya tiene una raíz.");
-        }
-        raiz = new Nodo<>(dato);
+    public Nodo<T> getRaiz() {
         return raiz;
     }
 
-    public Nodo<T> agregarIzquierdo(Nodo<T> padre, T dato) {
-        validarPadre(padre);
-        if (padre.getIzquierdo() != null) {
-            throw new IllegalStateException("La posición izquierda de "
-                    + padre.getDato() + " está ocupada.");
+    public boolean esVacio() {
+        return raiz == null;
+    }
+
+    public void crearRaiz(T dato) {
+        if (raiz == null) {
+            raiz = new Nodo<>(dato);
+        } else {
+            System.out.println("Error: La raíz ya existe.");
         }
-        Nodo<T> hijo = new Nodo<>(dato);
-        padre.setIzquierdo(hijo);
-        return hijo;
+    }
+
+    public Nodo<T> agregarIzquierdo(Nodo<T> padre, T dato) {
+        if (padre == null) return null;
+        if (padre.getIzquierdo() != null) {
+            System.out.println("Error: El nodo '" + padre.getDato() + "' ya tiene una posición izquierda ocupada.");
+            return null;
+        }
+        Nodo<T> nuevo = new Nodo<>(dato);
+        padre.setIzquierdo(nuevo);
+        return nuevo;
     }
 
     public Nodo<T> agregarDerecho(Nodo<T> padre, T dato) {
-        validarPadre(padre);
+        if (padre == null) return null;
         if (padre.getDerecho() != null) {
-            throw new IllegalStateException("La posición derecha de "
-                    + padre.getDato() + " está ocupada.");
+            System.out.println("Error: El nodo '" + padre.getDato() + "' ya tiene una posición derecha ocupada.");
+            return null;
         }
-        Nodo<T> hijo = new Nodo<>(dato);
-        padre.setDerecho(hijo);
-        return hijo;
+        Nodo<T> nuevo = new Nodo<>(dato);
+        padre.setDerecho(nuevo);
+        return nuevo;
     }
 
-    private void validarPadre(Nodo<T> padre) {
-        if (padre == null || !contiene(raiz, padre)) {
-            throw new IllegalArgumentException("El padre debe pertenecer al árbol.");
-        }
+    public int contarNodos() {
+        return contarNodos(raiz);
     }
 
-    private boolean contiene(Nodo<T> actual, Nodo<T> buscado) {
-        if (actual == null) { return false; }
-        return actual == buscado || contiene(actual.getIzquierdo(), buscado)
-                || contiene(actual.getDerecho(), buscado);
+    private int contarNodos(Nodo<T> nodo) {
+        if (nodo == null) return 0;
+        return 1 + contarNodos(nodo.getIzquierdo()) + contarNodos(nodo.getDerecho());
     }
 
-    /** Devuelve la primera coincidencia en preorden, o null si no existe. */
-    public Nodo<T> buscar(T dato) { return buscar(raiz, dato); }
-
-    private Nodo<T> buscar(Nodo<T> actual, T dato) {
-        if (actual == null) { return null; }
-        if (Objects.equals(actual.getDato(), dato)) { return actual; }
-        Nodo<T> encontrado = buscar(actual.getIzquierdo(), dato);
-        return encontrado != null ? encontrado : buscar(actual.getDerecho(), dato);
+    public int contarHojas() {
+        return contarHojas(raiz);
     }
 
-    public int contarNodos() { return contarNodos(raiz); }
-
-    private int contarNodos(Nodo<T> actual) {
-        if (actual == null) { return 0; }
-        return 1 + contarNodos(actual.getIzquierdo()) + contarNodos(actual.getDerecho());
+    private int contarHojas(Nodo<T> nodo) {
+        if (nodo == null) return 0;
+        if (nodo.esHoja()) return 1;
+        return contarHojas(nodo.getIzquierdo()) + contarHojas(nodo.getDerecho());
     }
 
-    public int contarHojas() { return contarHojas(raiz); }
-
-    private int contarHojas(Nodo<T> actual) {
-        if (actual == null) { return 0; }
-        if (actual.esHoja()) { return 1; }
-        return contarHojas(actual.getIzquierdo()) + contarHojas(actual.getDerecho());
+    public int altura() {
+        return altura(raiz);
     }
 
-    /** Altura en aristas: árbol vacío = -1; raíz sin hijos = 0. */
-    public int altura() { return altura(raiz); }
+    private int altura(Nodo<T> nodo) {
+        if (nodo == null) return -1; // -1 para que la hoja tenga altura 0 (aristas)
+        return 1 + Math.max(altura(nodo.getIzquierdo()), altura(nodo.getDerecho()));
+    }
 
-    private int altura(Nodo<T> actual) {
-        if (actual == null) { return -1; }
-        return 1 + Math.max(altura(actual.getIzquierdo()), altura(actual.getDerecho()));
+    // Método auxiliar para buscar un nodo y facilitar la inserción/consultas
+    public Nodo<T> buscar(T dato) {
+        return buscar(raiz, dato);
+    }
+
+    private Nodo<T> buscar(Nodo<T> nodo, T dato) {
+        if (nodo == null) return null;
+        if (nodo.getDato().equals(dato)) return nodo;
+        
+        Nodo<T> encontradoIzq = buscar(nodo.getIzquierdo(), dato);
+        if (encontradoIzq != null) return encontradoIzq;
+        
+        return buscar(nodo.getDerecho(), dato);
     }
 
     public void mostrarArbol() {
         if (esVacio()) {
-            System.out.println("(árbol vacío)");
-            return;
+            System.out.println("El árbol está vacío.");
+        } else {
+            mostrarArbolRecursivo(raiz, "", true);
         }
-        System.out.println(raiz.getDato());
-        mostrarHijos(raiz, "");
-        System.out.println("[I] = hijo izquierdo; [D] = hijo derecho");
     }
 
-    private void mostrarHijos(Nodo<T> actual, String prefijo) {
-        if (actual.getIzquierdo() != null) {
-            boolean ultimo = actual.getDerecho() == null;
-            System.out.println(prefijo + (ultimo ? "`-- " : "+-- ")
-                    + "[I] " + actual.getIzquierdo().getDato());
-            mostrarHijos(actual.getIzquierdo(), prefijo + (ultimo ? "    " : "|   "));
-        }
-        if (actual.getDerecho() != null) {
-            System.out.println(prefijo + "`-- [D] " + actual.getDerecho().getDato());
-            mostrarHijos(actual.getDerecho(), prefijo + "    ");
+    private void mostrarArbolRecursivo(Nodo<T> nodo, String prefijo, boolean esIzquierdo) {
+        if (nodo != null) {
+            System.out.println(prefijo + (esIzquierdo ? "├── " : "└── ") + nodo.getDato());
+            mostrarArbolRecursivo(nodo.getIzquierdo(), prefijo + (esIzquierdo ? "│   " : "    "), true);
+            mostrarArbolRecursivo(nodo.getDerecho(), prefijo + (esIzquierdo ? "│   " : "    "), false);
         }
     }
 }
