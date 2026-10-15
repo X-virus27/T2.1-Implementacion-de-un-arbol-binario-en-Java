@@ -69,9 +69,11 @@ Caso 2: árbol con un solo nodo
 Solo la raíz: 1 nodo, 1 hoja y altura 0.
 <img width="569" height="480" alt="image" src="https://github.com/user-attachments/assets/f203a23b-3709-4f26-90dd-b1d9b4fc5d37" />
 
+
 Caso 3: árbol inicial
 Después de crear el árbol: 9 nodos, 5 hojas y altura 3.
 <img width="167" height="591" alt="image" src="https://github.com/user-attachments/assets/69ab9c8e-27f3-4e05-a6fb-6d8e4433a261" />
+
 
 Caso 4: insertar un hijo en una posición ocupada
 El intento es rechazado porque la posición ya tiene un hijo.
