@@ -41,13 +41,14 @@ ArbolBinario<T>: crea la raíz, agrega hijos, cuenta nodos y hojas, calcula la a
 
 Main: menú interactivo con Scanner.
 
-3. Instrucciones de ejecución
+## 3. Instrucciones de ejecución
 Requisito: tener instalado el JDK de Java.
 
 Desde la carpeta raíz del repositorio:
+```
 javac -encoding UTF-8 -d out src/modelo/Nodo.java src/negocio/ArbolBinario.java src/app/Main.java
 java -cp out app.Main
-
+```
 También se puede ejecutar desde Visual Studio Code abriendo Main.java y presionando Run.
 
 Menú del programa
@@ -60,7 +61,7 @@ Menú del programa
 7. Verificar si un nodo es hoja
 8. Salir
 
-4. Resultados
+## 4. Resultados
 Caso 1: árbol vacío
 Antes de crear el árbol: 0 nodos y altura -1.
 <img width="620" height="644" alt="image" src="https://github.com/user-attachments/assets/96047bb8-929e-4ac2-9c47-1a12f3511e74" />
@@ -72,7 +73,9 @@ Solo la raíz: 1 nodo, 1 hoja y altura 0.
 
 Caso 3: árbol inicial
 Después de crear el árbol: 9 nodos, 5 hojas y altura 3.
-<img width="167" height="591" alt="image" src="https://github.com/user-attachments/assets/69ab9c8e-27f3-4e05-a6fb-6d8e4433a261" />
+<img width="369" height="888" alt="image" src="https://github.com/user-attachments/assets/ba2825cf-816c-4501-a7f0-cb1fbdd3840c" />
+<img width="371" height="445" alt="image" src="https://github.com/user-attachments/assets/6d52d192-4a8d-4cb5-8dfd-1f8219b1c0b6" />
+
 
 
 Caso 4: insertar un hijo en una posición ocupada
